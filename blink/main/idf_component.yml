@@ -1,0 +1,5 @@
+# Use the idf_component.yml manifest file to describe the component and its dependencies. The manifest file is
+# located in the root directory of the component.
+
+dependencies:
+  espressif/led_strip: "^2.4.1"

@@ -1,2 +1,16 @@
 # Ignore build directory
+/.vscode
+
+#hello_world
 /helloworld/build
+/helloworld/sdkconfig
+/helloworld/.vscode
+
+#blink
+/blink/managed_components
+/blink/build
+/blink/dependencies.lock
+/blink/dependencies.lock
+/blink/sdkconfig
+/blink/sdkconfig.defaults
+/blink/.vscode

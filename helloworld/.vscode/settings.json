@@ -5,5 +5,8 @@
         "board/esp32-wrover-kit-3.3v.cfg"
     ],
     "idf.portWin": "COM3",
-    "idf.toolsPathWin": "c:\\esp\\esp-tools"
+    "idf.toolsPathWin": "c:\\esp\\esp-tools",
+    "files.associations": {
+        "esp_log.h": "c"
+    }
 }
