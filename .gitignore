@@ -4,7 +4,6 @@
 #hello_world
 /helloworld/build
 /helloworld/sdkconfig
-/helloworld/.vscode
 
 #blink
 /blink/managed_components
@@ -13,4 +12,3 @@
 /blink/dependencies.lock
 /blink/sdkconfig
 /blink/sdkconfig.defaults
-/blink/.vscode

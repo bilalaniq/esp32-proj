@@ -1,7 +1,5 @@
-#include <stdlib.h>  // For rand() and srand()
-#include <time.h>    // For time()
-
-
+#include <stdlib.h> // For rand() and srand()
+#include <time.h>   // For time()
 
 #define LOG_LEVEL_LOCAL ESP_LOG_VERBOSE
 #include "esp_log.h"
@@ -55,12 +53,10 @@ static void configure_led(void)
 #endif
 }
 
-
-
 static uint8_t select_col_Ran(void)
 {
     // Generate a random number between 0 and 9
-    return rand() % 10;  // rand() % 10 gives values from 0 to 9
+    return rand() % 10; // rand() % 10 gives values from 0 to 9
 }
 
 static void blink_led(uint8_t c_choice)
@@ -148,8 +144,6 @@ static void blink_led(void)
 #error "unsupported LED type"
 #endif
 
-
-
 void app_main(void)
 {
     configure_led();
@@ -158,10 +152,14 @@ void app_main(void)
     {
         ESP_LOGI(TAG, "Turning the LED %s!", Led_State == true ? "ON" : "OFF");
 
+#ifdef CONFIG_BLINK_LED_STRIP
         blink_led(select_col_Ran());
+#elif CONFIG_BLINK_LED_GPIO
+        blink_led();
+#endif
+
         Toggle();
         // vTaskDelay(CONFIG_BLINK_PERIOD / portTICK_PERIOD_MS);  //slow
-        vTaskDelay(500 / portTICK_PERIOD_MS);  //faster
-
+        vTaskDelay(500 / portTICK_PERIOD_MS); // faster
     }
 }
