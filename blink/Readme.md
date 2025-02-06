@@ -297,6 +297,138 @@ The build in LED in esp32s3 is an addressable LED strip
 
 - **If you are using an addressable LED strip**, the code configures the strip using **RMT** or **SPI**, and the ESP32-S3 will control the strip with higher flexibility (such as setting individual LEDs to different colors).
 
+
+
+## project config
+
+- ### idf_component.yml
+
+```yml
+# Use the idf_component.yml manifest file to describe the component and its dependencies. The manifest file is
+# located in the root directory of the component.
+
+dependencies:
+  espressif/led_strip: "^2.4.1"
+
+```
+
+or you could simply write this in the terminal and it will work the same 
+
+```bash
+idf.py add-dependency espressif/led_strip@^2.4.1
+```
+
+- ### Kconfig.projbuild
+
+The Kconfig.projbuild file is used in ESP-IDF projects to configure project-specific settings that are used during the build process. It allows you to define custom configuration options specific to your project, and these settings can be accessed via the ESP-IDF configuration menu (menuconfig).
+
+How it works: The contents of Kconfig.projbuild are processed by the ESP-IDF's build system. The file typically includes options that configure your project’s settings, such as enabling or disabling certain features or defining project-specific values.
+
+Here's an example of what a Kconfig.projbuild might look like:
+
+```kconfig
+menuconfig MY_PROJECT_FEATURE
+    bool "Enable My Custom Feature"
+    default y
+    help
+      This option enables the custom feature specific to my project.
+```
+
+When to use it?
+Custom Features: When your project introduces new features that require configuration parameters.
+Project-Specific Settings: When you need to specify settings that are only relevant to your project and not to the global ESP-IDF settings.
+
+
+
+we have used this `kconfig` file in our blink project
+
+```kconfig
+menu "blink Configuration"
+
+    orsource "$IDF_PATH/examples/common_components/env_caps/$IDF_TARGET/Kconfig.env_caps"
+
+    choice BLINK_LED
+        prompt "Blink LED type"
+        default BLINK_LED_GPIO
+        help
+            Select the LED type. A normal level controlled LED or an addressable LED strip.
+            The default selection is based on the Espressif DevKit boards.
+            You can change the default selection according to your board.
+
+        config BLINK_LED_GPIO
+            bool "GPIO"
+        config BLINK_LED_STRIP
+            bool "LED strip"
+    endchoice
+
+    choice BLINK_LED_STRIP_BACKEND
+        depends on BLINK_LED_STRIP
+        prompt "LED strip backend peripheral"
+        default BLINK_LED_STRIP_BACKEND_RMT if SOC_RMT_SUPPORTED
+        default BLINK_LED_STRIP_BACKEND_SPI
+        help
+            Select the backend peripheral to drive the LED strip.
+
+        config BLINK_LED_STRIP_BACKEND_RMT
+            depends on SOC_RMT_SUPPORTED
+            bool "RMT"
+        config BLINK_LED_STRIP_BACKEND_SPI
+            bool "SPI"
+    endchoice
+
+    config BLINK_GPIO
+        int "Blink GPIO number"
+        range ENV_GPIO_RANGE_MIN ENV_GPIO_OUT_RANGE_MAX
+        default 8
+        help
+            GPIO number (IOxx) to blink on and off the LED.
+            Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used to blink.
+
+    config BLINK_PERIOD
+        int "Blink period in ms"
+        range 10 3600000
+        default 1000
+        help
+            Define the blinking period in milliseconds.
+
+endmenu
+
+```
+
+
+
+- ### CMAKE (inside main dir)
+
+```cmake
+idf_component_register(SRCS "main.c"
+                       INCLUDE_DIRS "inc"
+                       REQUIRES freertos esp_common driver led_strip)
+```
+
+we have included the `led_strip` which was included in the project by the `idf_component.yml` file
+
+
+- ### CMAKE
+```cmake
+# The following lines of boilerplate have to be in your project's
+# CMakeLists in this exact order for cmake to work correctly
+cmake_minimum_required(VERSION 3.16)
+
+include($ENV{IDF_PATH}/tools/cmake/project.cmake)
+project(blink)
+
+```
+
+
+
+
+
+
+
+
+
+
+
 ## Code Explanation 💡
 
 ### `main.h`
@@ -373,6 +505,13 @@ static void configure_led(void)
         .resolution_hz = 10 * 1000 * 1000, // 10MHz
         .flags.with_dma = false,
     };
+// .flags.with_dma = false:
+// Purpose: This setting specifies whether DMA (Direct Memory Access) is used for transmitting data through the RMT peripheral.
+// DMA (Direct Memory Access): Using DMA allows the ESP32 to send large amounts of data (such as a large array of LED color data) to the RMT peripheral without using the CPU. This reduces the CPU load.
+// false: Setting .with_dma = false means DMA is not enabled. This could mean that the data transmission will be handled by the CPU instead of DMA, which might be fine for smaller data sets or simpler applications.
+
+// If you're dealing with a large number of LEDs or need the system to handle other tasks concurrently, using DMA would be a good choice because it allows the data transfer for LEDs to happen in the background.
+
     ESP_ERROR_CHECK(led_strip_new_rmt_device(&strip_config, &rmt_config, &Led_strip));
 
 #elif CONFIG_BLINK_LED_STRIP_BACKEND_SPI
@@ -382,6 +521,14 @@ static void configure_led(void)
             .spi_bus = SPI1_HOST,
             .flags.with_dma = false,
         };
+
+// spi_bus = SPI1_HOST:
+// Purpose: Specifies the SPI bus to use for communication with the LED strip.
+// The ESP32 has multiple SPI buses (usually SPI1_HOST, SPI2_HOST, and SPI3_HOST), but typically, you will use SPI1 or SPI2 for controlling peripherals like LED strips.
+// SPI1_HOST is the SPI bus you are choosing to use here. This allows you to send data to the LED strip using the SPI interface.     
+
+// flags.with_dma = false:
+// false means that DMA is disabled
 
     ESP_ERROR_CHECK(led_strip_new_spi_device(&strip_config, &spi_config, &Led_strip));
 

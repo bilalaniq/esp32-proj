@@ -9,6 +9,12 @@
 /blink/managed_components
 /blink/build
 /blink/dependencies.lock
-/blink/dependencies.lock
 /blink/sdkconfig
 /blink/sdkconfig.defaults
+
+#WIFI
+/WIFI/dependencies.lock
+/WIFI/build
+/WIFI/sdkconfig
+/WIFI/sdkconfig.defaults
+/WIFI/sdkconfig.old
