@@ -492,6 +492,19 @@ DPP is a modern Wi-Fi security protocol designed to simplify and enhance the pro
 ---
 
 
+![security protocols](https://www.securew2.com/wp-content/uploads/2021/07/2.png)
+
+
+
+
+**Note**:
+If you want to learn about [Encryption](./Encryption.md) used in these security protocols, click here.  
+And if you want to learn about [Key Exchange](./Key_Exchange.md), click here.
+And if you want to learn about [authentication](./authentication_mechanism.md), click here.
+
+<br> 
+<br> 
+
 
 - # `Advanced Wi-Fi Features`
 
