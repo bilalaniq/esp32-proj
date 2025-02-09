@@ -16,6 +16,7 @@
         "esp_event.h": "c",
         "esp_wifi_crypto_types.h": "c",
         "esp_wifi_default.h": "c",
-        "nvs_flash.h": "c"
+        "nvs_flash.h": "c",
+        "xiosbase": "c"
     }
 }

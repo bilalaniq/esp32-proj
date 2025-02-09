@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/bilal/Videos/esp32/Wifi_scan/main
+# Install script for directory: C:/Users/bilal/Videos/esp32/WIFI/Wifi_scan/main
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

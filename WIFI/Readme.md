@@ -328,6 +328,12 @@ You can configure the Wi-Fi protocol mode in ESP32 using the **Wi-Fi SDK** (usua
 | **Compatibility**           | Compatible with older devices| Backward compatible with 802.11b| Backward compatible with 802.11b/g |
 | **Use Cases**               | Low-data-rate applications   | Home Wi-Fi networks          | High-speed networks, IoT, streaming |
 
+
+there are more standards you can look at them but esp32 does not support them yet
+
+![wifi standards](https://www.researchgate.net/profile/Muhammad_Taha_Jilani/publication/317425760/figure/fig1/AS:503222193987584@1496988928447/Comparison-of-variants-of-IEEE-80211-WiFi-standard.png)
+
+
 ---
 
 

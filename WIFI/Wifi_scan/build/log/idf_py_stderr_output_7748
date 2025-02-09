@@ -1,0 +1,17 @@
+[0;33m--- Warning: GDB cannot open serial ports accessed as COMx[0m
+[0;33m--- Using \\.\COM4 instead...[0m
+[0;33m--- esp-idf-monitor 1.5.0 on \\.\COM4 115200[0m
+[0;33m--- Quit: Ctrl+] | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H[0m
+[0;33m--- 0x4037e18a: prvSelectHighestPriorityTaskSMP at C:/esp/esp-idf/v5.4/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c:3635
+[0m
+[0;33m--- 0x40056f5c: memcpy in ROM
+0x40056f72: memcpy in ROM
+[0m
+[0;33m--- 0x4037e187: prvSelectHighestPriorityTaskSMP at C:/esp/esp-idf/v5.4/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c:3635
+0x4037eaf2: vTaskSwitchContext at C:/esp/esp-idf/v5.4/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c:3712
+0x4037d70c: _frxt_dispatch at C:/esp/esp-idf/v5.4/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/portasm.S:451
+0x4037d702: _frxt_int_exit at C:/esp/esp-idf/v5.4/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/portasm.S:246
+[0m
+[0;33m--- 0x40375b50: esp_restart_noos at C:/esp/esp-idf/v5.4/esp-idf/components/esp_system/port/soc/esp32s3/system_internal.c:160
+[0m
+[0m
