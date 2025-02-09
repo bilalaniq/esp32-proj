@@ -2,18 +2,19 @@
 /.vscode/
 
 # Ignore hello_world build and sdkconfig files
-/helloworld/build/**
+/helloworld/build/
 /helloworld/sdkconfig
 
 # Ignore blink managed_components, build, sdkconfig, and dependencies
 /blink/managed_components/
-/blink/build/**
+/blink/build/
 /blink/dependencies.lock
 /blink/sdkconfig
 /blink/sdkconfig.defaults
 
-# Ignore WIFI Wifi_scan dependencies, build, sdkconfig, and defaults
-/Wifi_scan/dependencies.lock
-/Wifi_scan/build/**
-/Wifi_scan/sdkconfig
-/Wifi_scan/sdkconfig.defaults
+Ignore WIFI Wifi_scan dependencies, build, sdkconfig, and defaults
+/WIFI/Wifi_scan/dependencies.lock
+/WIFI/Wifi_scan/build/
+/WIFI/Wifi_scan/sdkconfig
+/WIFI/Wifi_scan/sdkconfig.defaults
+
