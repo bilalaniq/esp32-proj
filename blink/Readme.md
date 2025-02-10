@@ -421,11 +421,15 @@ project(blink)
 
 
 
+- ## TO Blink the buildin LED strip in esp32s3 you also need to configure 
+**stkconfig.defaults** or **stkconfig.defaults.esp32s3**  (specifically for esp32s3)
 
+```bash
+CONFIG_BLINK_LED_STRIP=y
+CONFIG_BLINK_GPIO=48 
+```
 
-
-
-
+in esp32s3 the gpio pin which is used to blink the buildin led in esp32s3 is 48 so you need to change it form 8 to this
 
 
 
